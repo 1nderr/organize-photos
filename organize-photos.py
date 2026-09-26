@@ -56,7 +56,10 @@ def get_date_from_metadata(img_path: str):
     if not exif_data:
       return get_modified_date(img_path)
 
-    exif = {TAGS.get(tag, tag): value for tag, value in exif_data.items()}
+    tags = dict(exif_data)
+    # DateTimeOriginal is stored in the Exif sub-IFD, not with the top level tags
+    tags.update(exif_data.get_ifd(0x8769))
+    exif = {TAGS.get(tag, tag): value for tag, value in tags.items()}
     date_str = exif.get('DateTimeOriginal') or exif.get('CreateDate') or exif.get('DateTime')
 
     if not date_str:

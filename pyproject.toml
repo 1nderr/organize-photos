@@ -1,0 +1,13 @@
+[project]
+name = "organize-photos"
+version = "0.1.0"
+description = "Organizes photos and videos into year directories by their metadata"
+readme = "README.md"
+authors = [
+    { name = "1nder", email = "20195347+1nderr@users.noreply.github.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "pillow",
+    "pillow-heif",
+]

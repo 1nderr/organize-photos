@@ -25,9 +25,10 @@ photos/
 
 ### Usage
 
+Requires [uv](https://docs.astral.sh/uv/), which installs the dependencies on the first run.
+
 ```bash
-pip install -r requirements.txt
-python organize-photos.py /path/to/photos
+uv run organize-photos.py /path/to/photos
 ```
 
 The script reads EXIF data to determine the original date. If no EXIF data is available, it falls back to the file's modification date.

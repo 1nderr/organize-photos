@@ -3,6 +3,7 @@
 import argparse
 import os
 import shutil
+from collections import Counter
 from datetime import datetime
 
 import pillow_heif
@@ -36,6 +37,7 @@ MEDIA_EXTENSIONS = [
 # Example of final path: IMG.jpg -> 2025/2025-09-07 03-36-43.jpg
 def organize_images_by_year(dir_path):
     total = 0
+    years = Counter()
     directory = os.fsencode(dir_path)
 
     for file in os.listdir(directory):
@@ -57,8 +59,11 @@ def organize_images_by_year(dir_path):
 
         shutil.move(file_path, final_dst)
         total += 1
+        years[year] += 1
 
     print("Images organized:", total)
+    for year, count in sorted(years.items()):
+        print(f"  {year}: {count}")
 
 
 # Looks for the DateTime exif field. If it doesn't exist or theres an error
@@ -127,3 +132,4 @@ def parse_dir_path():
 
 
 organize_images_by_year(parse_dir_path())
+
